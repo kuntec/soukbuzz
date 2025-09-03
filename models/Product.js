@@ -28,9 +28,6 @@ const ProductSchema = new Schema(
 
         attributes: Schema.Types.Mixed,
         status: { type: String, enum: PRODUCT_STATUSES, default: 'active', index: true },
-
-        latitude: { type: Number, trim: true },
-        longitude: { type: Number, trim: true },
     },
     { timestamps: true }
 );

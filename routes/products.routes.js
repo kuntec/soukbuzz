@@ -43,9 +43,16 @@ router.put('/:id', async (req, res, next) => {
     }
 });
 
+
 router.delete('/:id', async (req, res, next) => {
     try {
-        const out = await Product.findByIdAndDelete(req.params.id); if (!out) return res.status(404).json({ message: 'Not found' }); res.json({ deleted: true });
+        const del = await Product.findByIdAndDelete(req.params.id);
+        if (!del) return res.status(404).json({ message: 'Not found' });
+        await Customer.updateMany(
+            { favoriteProducts: req.params.id },
+            { $pull: { favoriteProducts: req.params.id } }
+        );
+        res.json({ deleted: true });
     } catch (e) { next(e); }
 });
 

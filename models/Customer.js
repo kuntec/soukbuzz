@@ -11,10 +11,11 @@ const CustomerSchema = new Schema(
         country: { type: String, trim: true },
         latitude: { type: Number, trim: true },
         longitude: { type: Number, trim: true },
-        favoriteVendors: [{ type: Types.ObjectId, ref: 'Vendor' }],
-        favoriteProducts: [{ type: Types.ObjectId, ref: 'Product' }],
+        favoriteVendors: [{ type: Types.ObjectId, ref: 'Vendor', index: true }],
+        favoriteProducts: [{ type: Types.ObjectId, ref: 'Product', index: true }],
+        favoriteDeals: [{ type: Types.ObjectId, ref: 'Deal', index: true }],
+
         preferredCategoryIds: [{ type: Types.ObjectId, ref: 'Category' }],
-        wishlistDeals: [{ type: Types.ObjectId, ref: 'Deal', index: true }]
     },
     { timestamps: true }
 );

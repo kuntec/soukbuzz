@@ -66,25 +66,36 @@ router.delete('/:id', async (req, res, next) => {
         if (user.role === 'vendor') {
             const vendor = await Vendor.findOne({ user: user._id });
             if (vendor) {
-                await Product.deleteMany({ vendor: vendor._id });
-                await Deal.deleteMany({ vendor: vendor._id });
+                const products = await Product.find({ vendor: vendor._id }).select('_id');
+                const productIds = products.map(p => p._id);
+                const deals = await Deal.find({ vendor: vendor._id }).select('_id');
+                const dealIds = deals.map(d => d._id);
+
+                await Product.deleteMany({ _id: { $in: productIds } });
+                await Deal.deleteMany({ _id: { $in: dealIds } });
                 await Category.deleteMany({ vendor: vendor._id });
                 await Vendor.deleteOne({ _id: vendor._id });
+
+                if (productIds.length) {
+                    await Customer.updateMany(
+                        { favoriteProducts: { $in: productIds } },
+                        { $pull: { favoriteProducts: { $in: productIds } } }
+                    );
+                }
+                if (dealIds.length) {
+                    await Customer.updateMany(
+                        { favoriteDeals: { $in: dealIds } },
+                        { $pull: { favoriteDeals: { $in: dealIds } } }
+                    );
+                }
             }
         } else if (user.role === 'customer') {
-            const customer = await Customer.findOne({ user: user._id });
-
-            if (customer) {
-                await Customer.deleteOne({ user: user._id });
-
-            }
+            await Customer.deleteMany({ user: user._id });
         }
 
         await User.deleteOne({ _id: user._id });
         res.json({ deleted: true });
-    } catch (e) {
-        next(e);
-    }
+    } catch (e) { next(e); }
 });
 
 

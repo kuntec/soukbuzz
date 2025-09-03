@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Deal } = require('../models');
+const { Deal, Customer } = require('../models');
 const asNum = (x, d) => (isNaN(+x) ? d : +x);
 
 // Create (body must include vendor: <VendorId>)
@@ -75,10 +75,13 @@ router.delete('/:id', async (req, res, next) => {
         const del = await Deal.findByIdAndDelete(req.params.id);
         if (!del) return res.status(404).json({ message: 'Not found' });
         await Customer.updateMany(
-            { wishlistDeals: req.params.id },
-            { $pull: { wishlistDeals: req.params.id } }
+            { favoriteDeals: req.params.id },
+            { $pull: { favoriteDeals: req.params.id } }
         );
         res.json({ deleted: true });
     } catch (e) { next(e); }
 });
+
+
+
 module.exports = router;

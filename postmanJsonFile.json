@@ -1,0 +1,1168 @@
+{
+	"info": {
+		"_postman_id": "3d7337f9-a04b-4a73-8674-5b152b15e32b",
+		"name": "Live Deals API (Full CRUD + Favorites, lat/lng)",
+		"description": "Users, Vendors, Customers, Categories, Products, Deals. Customers can favorite products & deals. Uses latitude/longitude everywhere. PUT = full replacement (findOneAndReplace). Base URL: http://localhost:4000/api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45399738",
+		"_collection_link": "https://ayaankhan-9682105.postman.co/workspace/Ayaan-Khan's-Workspace~c712fcc6-a522-4525-8655-fb3d7a22471a/collection/45399738-3d7337f9-a04b-4a73-8674-5b152b15e32b?action=share&source=collection_link&creator=45399738"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User (Admin)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let j=pm.response.json(); pm.environment.set('user_admin_id', j._id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@livedeals.app\",\n    \"phone\": \"+971500000001\",\n    \"passwordHash\": \"$2b$12$dummyhash\",\n    \"role\": \"admin\",\n    \"status\": \"active\",\n    \"isEmailVerified\": false,\n    \"isPhoneVerified\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User (Vendor)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let j=pm.response.json(); pm.environment.set('user_vendor_id', j._id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"vendor1@shops.ae\",\n    \"phone\": \"+971500000002\",\n    \"passwordHash\": \"$2b$12$dummyhash\",\n    \"role\": \"vendor\",\n    \"status\": \"active\",\n    \"isEmailVerified\": false,\n    \"isPhoneVerified\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User (Customer)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let j=pm.response.json(); pm.environment.set('user_customer_id', j._id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"customer1@users.ae\",\n    \"phone\": \"+971500000003\",\n    \"passwordHash\": \"$2b$12$dummyhash\",\n    \"role\": \"customer\",\n    \"status\": \"active\",\n    \"isEmailVerified\": false,\n    \"isPhoneVerified\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/users/{{user_admin_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"users",
+								"{{user_admin_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User (PUT full replace)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@livedeals.app\",\n  \"phone\": \"+971500000001\",\n  \"passwordHash\": \"$2b$12$dummyhash\",\n  \"role\": \"admin\",\n  \"status\": \"active\",\n  \"city\": \"Dubai\",\n  \"country\": \"UAE\",\n  \"latitude\": 25.2048,\n  \"longitude\": 55.2708\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/users/{{user_admin_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"users",
+								"{{user_admin_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User (cascade vendor/customer)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/users/{{user_to_delete}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"users",
+								"{{user_to_delete}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vendors",
+			"item": [
+				{
+					"name": "Create Vendor (link to vendor user)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"let j=pm.response.json(); pm.environment.set('vendor_id', j._id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": \"{{user_vendor_id}}\",\n  \"displayName\": \"Fresh & Fast Grocery\",\n  \"slug\": \"fresh-and-fast-grocery\",\n  \"city\": \"Dubai\",\n  \"country\": \"UAE\",\n  \"latitude\": 25.2050,\n  \"longitude\": 55.2710,\n  \"status\": \"approved\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/vendors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"vendors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Vendors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/vendors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"vendors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vendor by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/vendors/{{vendor_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"vendors",
+								"{{vendor_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vendor (PUT full replace)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": \"{{user_vendor_id}}\",\n  \"displayName\": \"Fresh & Fast Grocery Updated\",\n  \"slug\": \"fresh-fast-grocery-updated\",\n  \"city\": \"Dubai\",\n  \"country\": \"UAE\",\n  \"latitude\": 25.2060,\n  \"longitude\": 55.2720,\n  \"status\": \"approved\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/vendors/{{vendor_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"vendors",
+								"{{vendor_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Vendor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/vendors/{{vendor_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"vendors",
+								"{{vendor_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Create Customer (link to customer user)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"let j=pm.response.json(); pm.environment.set('customer_id', j._id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": \"{{user_customer_id}}\",\n  \"fullName\": \"Ayesha Customer\",\n  \"city\": \"Dubai\",\n  \"country\": \"UAE\",\n  \"latitude\": 25.2060,\n  \"longitude\": 55.2760\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/customers/{{customer_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer (PUT full replace)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": \"{{user_customer_id}}\",\n  \"fullName\": \"Ayesha Updated\",\n  \"city\": \"Dubai\",\n  \"country\": \"UAE\",\n  \"latitude\": 25.2070,\n  \"longitude\": 55.2770\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/customers/{{customer_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/customers/{{customer_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Favorites • List Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/customers/{{customer_id}}/favorites/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"customers",
+								"{{customer_id}}",
+								"favorites",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Favorites • Add Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"productId\": \"{{product_id}}\" }"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/customers/{{customer_id}}/favorites/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"customers",
+								"{{customer_id}}",
+								"favorites",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Favorites • Remove Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/customers/{{customer_id}}/favorites/products/{{product_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"customers",
+								"{{customer_id}}",
+								"favorites",
+								"products",
+								"{{product_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Favorites • List Deals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/customers/{{customer_id}}/favorites/deals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"customers",
+								"{{customer_id}}",
+								"favorites",
+								"deals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Favorites • Add Deal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"dealId\": \"{{deal_id}}\" }"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/customers/{{customer_id}}/favorites/deals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"customers",
+								"{{customer_id}}",
+								"favorites",
+								"deals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Favorites • Remove Deal",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/customers/{{customer_id}}/favorites/deals/{{deal_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"customers",
+								"{{customer_id}}",
+								"favorites",
+								"deals",
+								"{{deal_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Create Global Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"let j=pm.response.json(); pm.environment.set('category_global_id', j._id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Electronics\",\n  \"slug\": \"electronics\",\n  \"description\": \"Phones, laptops, accessories\",\n  \"sortOrder\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/categories/global",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"categories",
+								"global"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vendor Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"let j=pm.response.json(); pm.environment.set('category_vendor_id', j._id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Groceries\",\n  \"slug\": \"groceries\",\n  \"description\": \"Daily essentials\",\n  \"vendor\": \"{{vendor_id}}\",\n  \"sortOrder\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/categories/vendor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"categories",
+								"vendor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/categories/{{category_vendor_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"categories",
+								"{{category_vendor_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category (PUT full replace)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Groceries Updated\",\n  \"slug\": \"groceries-updated\",\n  \"description\": \"Updated desc\",\n  \"vendor\": \"{{vendor_id}}\",\n  \"sortOrder\": 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/categories/{{category_vendor_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"categories",
+								"{{category_vendor_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/categories/{{category_to_delete}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"categories",
+								"{{category_to_delete}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Create Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let j=pm.response.json(); pm.environment.set('product_id', j._id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"vendor\": \"{{vendor_id}}\",\n  \"name\": \"Organic Bananas (1kg)\",\n  \"slug\": \"organic-bananas-1kg\",\n  \"description\": \"Fresh organic bananas, imported.\",\n  \"images\": [{\"url\":\"https://cdn/app/banana.jpg\",\"alt\":\"Bananas\"}],\n  \"categories\": [\"{{category_vendor_id}}\"],\n  \"sku\": \"FF-BAN-1KG\",\n  \"price\": {\"currency\": \"AED\", \"amount\": 7.5},\n  \"stockQty\": 120,\n  \"attributes\": {\"origin\":\"India\",\"organic\":true},\n  \"status\": \"active\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/products/{{product_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"products",
+								"{{product_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product (PUT full replace)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"vendor\": \"{{vendor_id}}\",\n  \"name\": \"Organic Bananas Updated\",\n  \"slug\": \"organic-bananas-1kg-upd\",\n  \"description\": \"Updated desc\",\n  \"images\": [{\"url\":\"https://cdn/app/banana2.jpg\",\"alt\":\"Bananas\"}],\n  \"categories\": [\"{{category_vendor_id}}\"],\n  \"sku\": \"FF-BAN-1KG-UPD\",\n  \"price\": {\"currency\": \"AED\", \"amount\": 9},\n  \"stockQty\": 80,\n  \"attributes\": {\"origin\":\"India\",\"organic\":false},\n  \"status\": \"active\",\n  \"latitude\": 25.2055,\n  \"longitude\": 55.2715\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/products/{{product_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"products",
+								"{{product_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product (also clears from favorites)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/products/{{product_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"products",
+								"{{product_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deals",
+			"item": [
+				{
+					"name": "Create Deal (Percent on Category)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"let j=pm.response.json(); pm.environment.set('deal_id', j._id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"vendor\": \"{{vendor_id}}\",\n  \"title\": \"Weekend Grocery Blast\",\n  \"description\": \"Save 20% this weekend!\",\n  \"appliesTo\": \"categories\",\n  \"categoryIds\": [\"{{category_vendor_id}}\"],\n  \"discountType\": \"percent\",\n  \"discountPercent\": 20,\n  \"startAt\": \"2025-08-29T06:00:00.000Z\",\n  \"endAt\": \"2025-08-31T21:00:00.000Z\",\n  \"status\": \"active\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/deals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"deals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Deal (Flat AED OFF on Product)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"vendor\": \"{{vendor_id}}\",\n  \"title\": \"AED 10 OFF Bananas\",\n  \"description\": \"Big box deal\",\n  \"appliesTo\": \"products\",\n  \"productIds\": [\"{{product_id}}\"],\n  \"discountType\": \"flat\",\n  \"discountAmount\": 10,\n  \"startAt\": \"2025-08-26T06:00:00.000Z\",\n  \"endAt\": \"2025-08-27T21:00:00.000Z\",\n  \"status\": \"active\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/deals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"deals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Deals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/deals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"deals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deal by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/deals/{{deal_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"deals",
+								"{{deal_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Deal (PUT full replace)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"vendor\": \"{{vendor_id}}\",\n  \"title\": \"AED 15 OFF Bananas Updated\",\n  \"description\": \"Special deal updated\",\n  \"appliesTo\": \"products\",\n  \"productIds\": [\"{{product_id}}\"],\n  \"discountType\": \"flat\",\n  \"discountAmount\": 15,\n  \"startAt\": \"2025-08-28T06:00:00.000Z\",\n  \"endAt\": \"2025-08-29T21:00:00.000Z\",\n  \"status\": \"active\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/deals/{{deal_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"deals",
+								"{{deal_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Deal (also clears from favorites)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/deals/{{deal_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"deals",
+								"{{deal_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Live Deals (now)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/deals/live",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"deals",
+								"live"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
